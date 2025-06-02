@@ -31,6 +31,53 @@ note（ノート）記事のPV・スキ数を毎日自動集計し、前日と�
 4. **必要に応じてトリガー（例：毎日8:00）を設定**  
 　→ `main.gs` の `sendNoteDailySummary()` を定期実行に指定
 
+## 🔑 NOTE_COOKIE の設定方法
+
+note APIから自分のPV/スキデータを取得するには、**自分のnoteアカウントの認証Cookie**が必要です。  
+スクリプトプロパティの `NOTE_COOKIE` に、下記手順で取得した値を設定してください。
+
+### 1. どのクッキー名を使う？
+
+| クッキー名               | 用途・説明                | 設定すべきか            |
+|-------------------------|--------------------------|-------------------------|
+| `_note_session_v5`      | noteの認証セッションクッキー | **必須（これだけでOK）**|
+| `note_gql_auth_token`   | noteのAPI認証用           | 取得できない場合は追加してもよい |
+| `XSRF-TOKEN`            | POST時のCSRF用            | 通常は不要              |
+
+### 2. 取得手順
+
+1. **Chromeなどのブラウザでnoteにログインする**
+2. F12（デベロッパーツール）を開き、「Application」タブ →「Cookies」→ `note.com` を選択
+3. **`_note_session_v5`** というクッキーを探し、その「値」をコピー
+4. スクリプトプロパティ `NOTE_COOKIE` に、  
+```
+_note_session_v5=xxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+のように貼り付ける  
+※`_note_session_v5=` から始める。空白や改行は除去
+
+#### ▼ 設定例
+```
+_note_session_v5=abcd1234efgh5678ijkl91011mnop
+```
+> 必要に応じて `note_gql_auth_token=xxxxxxx` も「;」区切りで追加できます  
+> ```
+> _note_session_v5=xxxxxxx; note_gql_auth_token=yyyyyyy
+> ```
+
+### 3. 注意点
+
+- セッションCookieは**定期的に失効**します（noteに再ログイン後、再取得が必要です）
+- 別アカウントや未ログイン状態ではデータ取得できません
+- コピー時は**余分なスペース・改行・ダブルクォート**が混入しないようご注意ください
+
+### ▼ GASでの設定箇所
+
+- **Google Apps Scriptエディタ**  
+  左側「歯車アイコン」→「プロジェクトのプロパティ」→「スクリプトのプロパティ」タブ  
+- キー名：`NOTE_COOKIE`　値：上記で取得したクッキー値
+
+
 ---
 
 ## 📩 機能
