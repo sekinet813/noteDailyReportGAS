@@ -53,6 +53,7 @@ ReportGenerator.prototype.getBody = function () {
     summary,
     "",
     "—",
+    "https://drive.google.com/drive/u/0/folders/1RVSsfvEwFCNcAdLL0blTIBHD1AvJhwJI",
     "自動配信：note分析Bot（GAS + GPT-4o-mini）"
   ].join('\n');
 };
