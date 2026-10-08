@@ -39,3 +39,14 @@ function sendNoteDailySummary() {
   }
 }
 
+
+
+// Read-only preview: does not fetch note data, change sheets, or send email.
+function previewNoteDailySummary() {
+  var config = Config.getInstance();
+  var note = NoteStatsService.getInstance(config);
+  var today = Utilities.formatDate(new Date(), config.timezone, 'yyyy-MM-dd');
+  if (!note.getSnapshot(today).complete) throw new Error('当日の完全な保存済みデータがありません');
+  var report = new ReportGenerator(note, config, true);
+  Logger.log(report.getSubject() + '\n' + report.getBody());
+}

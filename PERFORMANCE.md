@@ -1,3 +1,5 @@
+<!-- PR #2 時点の検証記録。欠損データ対応の追加変更は INTEGRITY.md を参照。前日参照式・タイトルキー・月初参照・未保全上書きを維持する記述は追加修正で置き換わります。 -->
+
 # 実行時間と再実行対策
 
 調査対象: main 54dacaa29dc26b67da4e3f4db98cd52e337f192f。GASに実際に配備されたコード、10月7日の実行ログ、Spreadsheetは未確認。10月8日のメール到着だけでは10月7日のデータ完全性は保証できない。
@@ -41,3 +43,4 @@ GitHub更新のみではGASへ配備されない。NoteStatsService.gsとmain.gs
 6. 本番反映後は数日分の実行時間・完了ログと到着メールを確認する。短縮秒数・倍率は未測定。10月7日の停止原因は断定しない。
 
 公式参考: https://developers.google.com/apps-script/guides/support/best-practices 、https://developers.google.com/apps-script/guides/services/quotas
+
